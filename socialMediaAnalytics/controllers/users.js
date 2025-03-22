@@ -65,8 +65,11 @@ const calculateTopUsers = async (req, res) => {
       .filter((user) => user.totalPosts > 0)
       .sort((a, b) => b.totalPosts - a.totalPosts)
       .slice(0, 5);
+
+    const topUsersWithoutPosts = topUsers.map(({ posts, ...user }) => user);
+
     res.status(200).json({
-      message: topUsers,
+      message: topUsersWithoutPosts,
     });
   } catch (error) {
     console.error("Error in calculateAverage:", error);
